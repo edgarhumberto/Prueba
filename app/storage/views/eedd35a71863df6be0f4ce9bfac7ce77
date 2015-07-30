@@ -1,0 +1,89 @@
+ 
+<?php $__env->startSection('sidebar'); ?>
+     @parent
+     Formulario de Negocio
+<?php $__env->stopSection(); ?>
+ 
+<?php $__env->startSection('content'); ?>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="clearfix btn-block">
+        <?php echo HTML::link('categoriasNegocios', 'Regresar a categorias', array('class' => 'btn btn-default pull-left'));; ?>
+
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-success panel-custom">
+	<div class="panel-heading">
+		<h3 class="panel-title">Categoria de Negocio</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table">
+			<tr>
+				<td>Nombre</td>
+				<td><?php echo $categoria->nombre; ?></td>
+			</tr>
+			<tr>
+				<td>Icono</td>
+				<td><?php if(!empty($categoria->icono_emblema)): ?> <?php echo HTML::image('img/emblemas/categorias/'.$categoria->icono_emblema, 'a picture', array('class' => 'thumb icono-emblema-detalle')); ?> <?php endif; ?> </td>
+			</tr>
+			<tr>
+				<td>Descripción</td>
+				<td><?php echo $categoria->descripcion; ?></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="clearfix btn-block">
+	<div class="pull-right">
+		<?php echo HTML::link(route('categoriasNegocios.edit', array($categoria->id)), 'Editar', array('class' => 'btn btn-default'));; ?>
+
+		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#gridSystemModal">Eliminar</button>
+	
+	</div>
+</div>
+
+<?php echo Form::open(array('url' => 'categoriasNegocios/' . $categoria->id, 'class' => 'pull-right')); ?>
+
+        <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+        
+<div class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" id="gridSystemModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Eliminar categoria</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-offset-1 col-md-8"><?php if(!empty($categoria->negocios[0])): ?> No se puede eliminar esta categoria ya que hay negocios relacionados a esta categoria <?php else: ?> Si realmente desea eliminar esta categoria presione eliminar. <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <?php if(empty($categoria->negocios[0])): ?>
+        	<button type="submit" class="btn btn-primary" id="eliminar">Eliminar</button>
+        <?php endif; ?>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<?php echo Form::close(); ?>
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>	
+<script>
+$(function(){
+});
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,53 @@
+ 
+<?php $__env->startSection('sidebar'); ?>
+     @parent
+     Formulario de Negocio
+<?php $__env->stopSection(); ?>
+ 
+<?php $__env->startSection('content'); ?>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="clearfix btn-block">
+        	<?php echo HTML::link('qpones', 'Regresar a Qpones', array('class' => 'btn btn-default pull-left'));; ?>
+
+        	<div class="pull-right">
+        		<?php echo HTML::link('categoriasQpones/create', 'Agregar Categoria', array('class' => 'btn btn-default pull-left'));; ?>	
+        	</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="panel panel-success panel-custom">
+	<div class="panel-heading">
+		<h3 class="panel-title">Categorias de Qpones</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover">
+			<tr>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Icono</th>
+			</tr>
+			<tbody>
+				<?php foreach($categories as $category): ?>
+					<tr>
+						<td><?php echo HTML::link(route('categoriasQpones.show', array($category->id)), $category->nombre); ?></td>
+						<td><?php echo HTML::link(route('categoriasQpones.show', array($category->id)), $category->descripcion); ?></td>
+						<td><?php if(!empty($category->icono_emblema)): ?> <?php echo HTML::image('img/emblemas/categorias/'.$category->icono_emblema, 'a picture', array('class' => 'thumb icono-emblema')); ?> <?php endif; ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="row">
+	<div class="pull-right">
+		<?php echo $categories->links();; ?>
+
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
